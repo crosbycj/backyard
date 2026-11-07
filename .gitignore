@@ -1,0 +1,19 @@
+.env
+.venv/
+__pycache__/
+.DS_Store
+
+# The bird archive is ours to keep, but it's photos and videos, not code.
+archive/
+
+# The local screen preview's own state and test photos
+wall/.cache/
+wall/preview-photos/
+wall/_build/
+
+# The iPhone app's Xcode project and Info.plist are made by XcodeGen (app/project.yml)
+app/Backyard.xcodeproj/
+app/Backyard/Info.plist
+app/Packages/*/.build/
+app/Packages/*/.swiftpm/
+app/build/

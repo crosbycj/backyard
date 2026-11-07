@@ -1,0 +1,232 @@
+{
+  "_about": "A made-up week, for designing the screen before real visits arrive. Same shape publish.py sends. Put four photos of your own in wall/preview-photos/ to see them.",
+  "title": "Backyard Birds",
+  "place": "Backyard feeder",
+  "now": {
+    "weather": "52°, light rain",
+    "seed": 4,
+    "seed_of": 7,
+    "seed_until": "until Thursday",
+    "sunset": "6:05",
+    "as_of": "Thu, Oct 23 · 12:04"
+  },
+  "feed": [
+    {
+      "day": "Today",
+      "rows": [
+        {
+          "t": "11:52",
+          "lead": "The ",
+          "bird": "Steller's Jay",
+          "rest": " came for the fifth morning this week.",
+          "plate": 3
+        },
+        {
+          "t": "11:20",
+          "lead": "A gray ",
+          "bird": "squirrel",
+          "rest": " hung upside down from the feeder and ate for ten minutes.",
+          "plate": 4
+        },
+        {
+          "t": "10:05",
+          "lead": "Two ",
+          "bird": "Black-capped Chickadees",
+          "rest": " took turns at the tray.",
+          "plate": 5
+        },
+        {
+          "t": "9:31",
+          "lead": "Two ",
+          "bird": "House Finches",
+          "rest": " fed together for six minutes."
+        },
+        {
+          "t": "8:40",
+          "lead": "Two ",
+          "bird": "Dark-eyed Juncos",
+          "rest": " picked seed off the tray for the first time in months."
+        },
+        {
+          "t": "8:12",
+          "lead": "A male ",
+          "bird": "House Finch",
+          "rest": " was the first bird of the day."
+        }
+      ]
+    },
+    {
+      "day": "Yesterday",
+      "rows": [
+        {
+          "t": "4:51",
+          "lead": "A female ",
+          "bird": "Mourning Dove",
+          "rest": " fed on the ground, then on the tray."
+        },
+        {
+          "t": "2:30",
+          "lead": "Two ",
+          "bird": "Black-capped Chickadees",
+          "rest": " came in after the rain stopped."
+        },
+        {
+          "t": "10:44",
+          "lead": "The ",
+          "bird": "Steller's Jay",
+          "rest": " filled its beak and flew off."
+        },
+        {
+          "t": "9:02",
+          "lead": "Five ",
+          "bird": "House Finches",
+          "rest": " crowded the tray at once."
+        },
+        {
+          "t": "8:30",
+          "lead": "A pair of ",
+          "bird": "House Finches",
+          "rest": " came first, before the rain."
+        }
+      ]
+    },
+    {
+      "day": "Tuesday",
+      "rows": [
+        {
+          "t": "5:12",
+          "lead": "Two ",
+          "bird": "House Finches",
+          "rest": " came in the last light."
+        },
+        {
+          "t": "3:40",
+          "lead": "A ",
+          "bird": "Black-capped Chickadee",
+          "rest": " hid a seed in the bark of a tree."
+        },
+        {
+          "t": "9:40",
+          "lead": "The ",
+          "bird": "Steller's Jay",
+          "rest": " chased a finch off the tray."
+        },
+        {
+          "t": "8:55",
+          "lead": "Four ",
+          "bird": "House Finches",
+          "rest": " came and went for two hours."
+        }
+      ]
+    },
+    {
+      "day": "Monday",
+      "rows": [
+        {
+          "t": "4:20",
+          "lead": "A gray ",
+          "bird": "squirrel",
+          "rest": " emptied a third of the seed."
+        },
+        {
+          "t": "10:12",
+          "lead": "The ",
+          "bird": "Steller's Jay",
+          "rest": " came for the first time this week."
+        },
+        {
+          "t": "9:15",
+          "lead": "Three ",
+          "bird": "House Finches",
+          "rest": " waited nearby for the squirrel to leave."
+        },
+        {
+          "t": "8:02",
+          "lead": "A ",
+          "bird": "Black-capped Chickadee",
+          "rest": " came at first light, alone."
+        }
+      ]
+    },
+    {
+      "day": "Sunday",
+      "rows": [
+        {
+          "t": "3:30",
+          "lead": "A female ",
+          "bird": "House Finch",
+          "rest": " fed for twelve minutes, the longest visit of the week."
+        },
+        {
+          "t": "11:10",
+          "lead": "Two ",
+          "bird": "Mourning Doves",
+          "rest": " sat under the feeder and picked up what fell."
+        },
+        {
+          "t": "8:45",
+          "lead": "The ",
+          "bird": "Steller's Jay",
+          "rest": " called twice from a tree before it came down."
+        }
+      ]
+    }
+  ],
+  "plates": [
+    {
+      "n": 1,
+      "photo": "https://photos.bird-log.invalid/photo-4.jpg"
+    },
+    {
+      "n": 2,
+      "photo": "https://photos.bird-log.invalid/photo-1.jpg"
+    },
+    {
+      "n": 3,
+      "photo": "https://photos.bird-log.invalid/photo-3.jpg",
+      "t": "11:52"
+    },
+    {
+      "n": 4,
+      "photo": "https://photos.bird-log.invalid/photo-2.jpg",
+      "t": "11:20"
+    },
+    {
+      "n": 5,
+      "photo": "https://photos.bird-log.invalid/photo-1.jpg",
+      "t": "10:05"
+    }
+  ],
+  "essay": {
+    "dateline": "Sunday, October 19.",
+    "paragraphs": [
+      {
+        "lead": "A ",
+        "bird": "Steller's Jay",
+        "plate": 1,
+        "rest": " came five mornings out of seven, always before eleven. It takes seed by the beakful to hide, carrying several at once in its throat."
+      },
+      {
+        "lead": "The ",
+        "bird": "Black-capped Chickadees",
+        "plate": 2,
+        "rest": " have come six mornings in a row, usually in pairs. Each one takes a single seed, flies to a branch, and hammers it open, or tucks it into bark to find later."
+      },
+      {
+        "lead": "The ",
+        "bird": "House Finches",
+        "rest": " still run the place, with more than half of all visits. The juncos came back on Thursday for the first time in months."
+      }
+    ]
+  },
+  "notes": [
+    {
+      "label": "Did you know",
+      "text": "A male House Finch gets his red from what he eats, and females choose the reddest males."
+    },
+    {
+      "label": "Listen for",
+      "text": "Barred Owls call more on autumn nights, so listen after dark for “who cooks for you.”"
+    }
+  ]
+}

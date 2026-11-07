@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Runs the Bird log collector every 10 minutes while you're logged in.
+  Set WorkingDirectory and the log paths to where you cloned this.
+  Install:  cp collector/bird-log.collect.plist ~/Library/LaunchAgents/
+            launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/bird-log.collect.plist
+  Stop:     launchctl bootout gui/$(id -u)/bird-log.collect
+  Log:      archive/collector.log
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>bird-log.collect</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/opt/homebrew/bin/uv</string>
+    <string>run</string>
+    <string>--quiet</string>
+    <string>collector/collect.py</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>/path/to/backyard</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+  </dict>
+  <key>StartInterval</key>
+  <integer>600</integer>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>StandardOutPath</key>
+  <string>/path/to/backyard/archive/collector.log</string>
+  <key>StandardErrorPath</key>
+  <string>/path/to/backyard/archive/collector.log</string>
+</dict>
+</plist>

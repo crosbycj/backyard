@@ -1,0 +1,115 @@
+<style>
+  .bb { display: grid; grid-template-columns: 57% 1fr; gap: 22px; width: 100%; height: 100%; min-height: 0; color: black;
+        font-family: var(--font-base-font-family); -webkit-font-smoothing: var(--font-base-font-smoothing); }
+  .bb-left, .bb-right { display: flex; flex-direction: column; min-height: 0; }
+
+  .bb-mast { display: flex; align-items: baseline; gap: 14px; }
+  .bb-title { font-size: 34px; font-weight: 700; line-height: 1; letter-spacing: -0.01em; }
+  .bb-place { font-size: 13px; }
+  .bb-now { display: flex; align-items: center; gap: 18px; font-size: 14px; margin-top: 8px; white-space: nowrap; }
+  .bb-gauge { display: inline-flex; gap: 2px; margin: 0 6px; vertical-align: -1px; }
+  .bb-gauge i { display: block; width: 7px; height: 13px; background: black; }
+  .bb-gauge i.off { background: white; outline: 1px solid black; outline-offset: -1px; }
+  .bb-asof { margin-left: auto; }
+  .bb-alert { background: black; color: white; padding: 0 6px; font-weight: 700; }
+
+  .bb-feed { flex: 1; min-height: 0; margin-top: 10px; gap: 0 !important; overflow: hidden; }
+  .bb-feed > * { flex-shrink: 0 !important; }
+  .bb-day { display: block !important; width: 100%; text-align: left !important; font-size: 12px; letter-spacing: 0.04em; border-bottom: 1.5px solid black; padding-bottom: 1px; margin: 8px 0 1px !important; }
+  .bb-day:first-child { margin-top: 0 !important; }
+  .bb-row { display: grid !important; grid-template-columns: 46px 1fr 14px; gap: 8px; align-items: baseline; font-size: 14px; line-height: 1.3; padding: 3px 0 !important; margin: 0 !important; min-height: 0 !important; border-bottom: 1px solid #b0b0b0; }
+  .bb-row .t { font-weight: 700; }
+  .bb-row .p { font-size: 12px; font-weight: 700; text-align: right; }
+  .bb-row.quiet { font-style: italic; }
+
+  .bb-notes { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; border-top: 2px solid black; padding-top: 7px; margin-top: 6px; }
+  .bb-note { font-size: 14px; line-height: 1.35; }
+  .bb-label { display: inline-block; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; border-bottom: 1px solid black; margin-bottom: 3px; }
+
+  .bb-plates-mid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 6px; }
+  .bb-plate { position: relative; aspect-ratio: 1 / 1; border: 2px solid black; overflow: hidden; }
+  .bb-plate.big { aspect-ratio: 16 / 10; }
+  .bb-plate.mid { aspect-ratio: 4 / 3; }
+  .bb-plate img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .bb-plate .n, .bb-plate .tm { position: absolute; background: white; font-size: 12px; font-weight: 700; padding: 0 5px; line-height: 1.4; }
+  .bb-plate .n { left: 0; top: 0; border-right: 2px solid black; border-bottom: 2px solid black; }
+  .bb-plate .tm { right: 0; bottom: 0; border-left: 2px solid black; border-top: 2px solid black; font-weight: 400; }
+  .bb-plate .new { position: absolute; right: 0; top: 0; background: black; color: white; font-size: 13px; font-weight: 700; padding: 1px 8px; line-height: 1.5; }
+
+  .bb-plate.illo { background: white; }
+  .bb-plate.illo img { object-fit: contain; padding: 8%; box-sizing: border-box; }
+  .bb-note.has-qr { display: grid; grid-template-columns: 1fr 84px; gap: 10px; align-items: center; }
+  .bb-note-qr svg { display: block; width: 84px; height: auto; }
+
+  .bb-essay { flex: 1; min-height: 0; overflow: hidden; margin-top: 10px; }
+  /* The week's QR code sits in the story's bottom-right corner, with the text around it:
+     an empty float pushes it down to the corner. */
+  .bb-essay-push { float: right; width: 0; height: calc(100% - 116px); }
+  .bb-essay-qr { float: right; clear: right; width: 92px; margin: 4px 0 0 14px; text-align: center; }
+  .bb-essay-qr svg { display: block; width: 92px; height: auto; }
+  .bb-hint { display: block; font-size: 11px; line-height: 1.2; margin-top: 3px; text-align: center; }
+  .bb-essay p { font-size: 15px; line-height: 1.36; margin: 0 0 7px; }
+</style>
+
+<div class="layout layout--stretch">
+  <div class="bb">
+    <div class="bb-left">
+      <div class="bb-mast">
+        <span class="bb-title">{{ title | default: "Backyard Birds" }}</span>
+        <span class="bb-place">{{ place }}</span>
+      </div>
+      <div class="bb-now">
+        {% if now.weather %}<span>{{ now.weather }}</span>{% endif %}
+        {% if now.seed %}
+          <span>Seed<span class="bb-gauge">{% for i in (1..now.seed_of) %}<i{% if i > now.seed %} class="off"{% endif %}></i>{% endfor %}</span>{{ now.seed_until }}</span>
+        {% endif %}
+        {% if now.sunset %}<span>Sunset {{ now.sunset }}</span>{% elsif now.sunrise %}<span>Sunrise {{ now.sunrise }}</span>{% endif %}
+        {% if now.alert %}<span class="bb-alert">{{ now.alert }}</span>{% endif %}
+        <span class="bb-asof">{{ now.as_of }}</span>
+      </div>
+
+      <div class="bb-feed flex flex--col" data-overflow="true">
+        {% for day in feed %}
+          <span class="label group-header bb-day" data-group-header="true">{{ day.day }}</span>
+          {% for row in day.rows %}
+            <div class="item bb-row{% if row.quiet %} quiet{% endif %}">
+              <span class="t">{{ row.t }}</span>
+              <span>{{ row.lead }}<b>{{ row.bird }}</b>{{ row.rest }}</span>
+              <span class="p">{{ row.plate }}</span>
+            </div>
+          {% endfor %}
+        {% endfor %}
+      </div>
+
+      {% if notes.size > 0 %}
+        <div class="bb-notes">
+          {% for note in notes limit: 2 %}
+            {% if note.link %}
+              <div class="bb-note has-qr"><div><span class="bb-label">{{ note.label }}</span><br>{{ note.text }}</div><div class="bb-note-qr">{{ note.link | qr_code }}<span class="bb-hint">Scan to hear it</span></div></div>
+            {% else %}
+              <div class="bb-note"><span class="bb-label">{{ note.label }}</span><br>{{ note.text }}</div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="bb-right">
+      {% for plate in plates limit: 1 %}
+        <div class="bb-plate big {{ plate.kind | replace: 'illustration', 'illo' }}"><img class="image image-dither" src="{{ plate.photo }}"><span class="n">{{ plate.n }}</span>{% if plate.new %}<span class="new">{{ plate.new }}</span>{% endif %}{% if plate.t %}<span class="tm">{{ plate.t }}</span>{% endif %}</div>
+      {% endfor %}
+      <div class="bb-plates-mid">
+        {% for plate in plates offset: 1 limit: 2 %}
+          <div class="bb-plate mid {{ plate.kind | replace: 'illustration', 'illo' }}"><img class="image image-dither" src="{{ plate.photo }}"><span class="n">{{ plate.n }}</span>{% if plate.t %}<span class="tm">{{ plate.t }}</span>{% endif %}</div>
+        {% endfor %}
+      </div>
+
+      <div class="bb-essay">
+        {% if week_url %}<div class="bb-essay-push"></div><div class="bb-essay-qr">{{ week_url | qr_code }}<span class="bb-hint">Week in color</span></div>{% endif %}
+        {% for para in essay.paragraphs %}
+          <p>{% if forloop.first and essay.dateline %}<i>{{ essay.dateline }}</i> {% endif %}{{ para.lead }}<b>{{ para.bird }}</b>{% if para.plate %} ({{ para.plate }}){% endif %}{{ para.rest }}</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

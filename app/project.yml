@@ -1,0 +1,119 @@
+# The Backyard iPhone app. The Xcode project is made from this file:
+#   cd app && xcodegen
+# UIKit with layout in code; the folders under Backyard/ are its places.
+name: Backyard
+options:
+  bundleIdPrefix: com.example
+  deploymentTarget:
+    iOS: "18.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "1.0"
+    # testflight.sh stamps each upload with the time, so builds only go up.
+    CURRENT_PROJECT_VERSION: "1"
+packages:
+  YardModel:
+    path: Packages/YardModel
+  YardStore:
+    path: Packages/YardStore
+targets:
+  Backyard:
+    type: application
+    platform: iOS
+    sources:
+      - path: Backyard
+      - path: Widget/YardView.swift
+    dependencies:
+      - package: YardModel
+      - package: YardStore
+      - target: BackyardWidget
+      - target: BackyardNotify
+    entitlements:
+      path: Backyard/Backyard.entitlements
+      properties:
+        # Notifications (collector/notify.py); a distribution build gets production.
+        aps-environment: development
+        # "New to the yard" comes through Focus unless the person turns that off.
+        com.apple.developer.usernotifications.time-sensitive: true
+    info:
+      path: Backyard/Info.plist
+      properties:
+        CFBundleDisplayName: Backyard
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        UILaunchScreen: {}
+        # Animations at the screen's full 120 Hz, not 60.
+        CADisableMinimumFrameDurationOnPhone: true
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        ITSAppUsesNonExemptEncryption: false
+        # The widget opens a visit with backyard://visit/<id>.
+        CFBundleURLTypes:
+          - CFBundleURLName: com.example.backyard
+            CFBundleURLSchemes: [backyard]
+        NSPhotoLibraryAddUsageDescription: Save photos of your yard's visitors to your library.
+        # A look at the feed now and then, to notice when the archive has stopped.
+        UIBackgroundModes: [fetch]
+        BGTaskSchedulerPermittedIdentifiers: [com.example.backyard.refresh]
+        # Newsreader, the serif (OFL).
+        UIAppFonts: [Newsreader.ttf, Newsreader-Italic.ttf]
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+          UISceneConfigurations:
+            UIWindowSceneSessionRoleApplication:
+              - UISceneConfigurationName: Default
+                UISceneDelegateClassName: $(PRODUCT_MODULE_NAME).SceneDelegate
+        # The collector's feed (collector/feed.py prints it).
+        YardFeedURL: https://example.com/your-feed/v1/index.json
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.backyard
+        TARGETED_DEVICE_FAMILY: "1"
+        DEVELOPMENT_TEAM: ""  # your Apple developer team id
+        CODE_SIGN_STYLE: Automatic
+  # Puts the visit's photo on a notification before it shows.
+  BackyardNotify:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: Notify
+    info:
+      path: Notify/Info.plist
+      properties:
+        CFBundleDisplayName: Backyard
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.usernotifications.service
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).NotificationService
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.backyard.notify
+        TARGETED_DEVICE_FAMILY: "1"
+        DEVELOPMENT_TEAM: ""
+        CODE_SIGN_STYLE: Automatic
+  # The home screen and Lock Screen widget: the latest bird, and the seed.
+  BackyardWidget:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: Widget
+    dependencies:
+      - package: YardModel
+      - package: YardStore
+    info:
+      path: Widget/Info.plist
+      properties:
+        CFBundleDisplayName: Backyard
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+        YardFeedURL: https://example.com/your-feed/v1/index.json
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.backyard.widget
+        TARGETED_DEVICE_FAMILY: "1"
+        DEVELOPMENT_TEAM: ""
+        CODE_SIGN_STYLE: Automatic

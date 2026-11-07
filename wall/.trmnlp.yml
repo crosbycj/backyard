@@ -1,0 +1,18 @@
+---
+# Local preview only; not uploaded. Data arrives the way TRMNL gets it:
+# publish.py posts to this server's /webhook.
+watch:
+  - .trmnlp.yml
+  - src
+
+time_zone: UTC  # set to your time zone
+
+custom_fields: {}
+
+variables:
+  trmnl: {}
+
+# Photos will live at a public URL once hosting is decided; locally they
+# come from preview-photos/.
+asset_overrides:
+  https://photos.bird-log.invalid/: preview-photos
